@@ -34,7 +34,7 @@ export default class Settings extends Component {
                         <Mycard key={item.jianId} {...item} />
                     )
                 })}
-                <p style={{textAlign:'center',marginTop:'20px',color:'green',fontSize:'20px'}}>~~~已经到底啦~~~</p>
+                <p style={{textAlign:'center',marginTop:'30px',color:'green',fontSize:'18px'}}>~~~已经到底啦~~~</p>
             </div>
         )
     }

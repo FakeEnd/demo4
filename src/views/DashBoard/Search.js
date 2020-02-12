@@ -37,7 +37,7 @@ export default class Search extends PureComponent {
                 {
                     this.state.list.map((item)=><Searchcard key={item.dishId} {...item} />)
                 }
-                <p style={{textAlign:'center',marginTop:'20px',color:'green',fontSize:'20px'}}>~~~已经到底啦~~~</p>
+                <p style={{textAlign:'center',marginTop:'20px',color:'green',fontSize:'18px'}}>~~~已经到底啦~~~</p>
             </div>
         )
     }

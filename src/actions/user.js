@@ -33,7 +33,7 @@ export const login = (username, password) => {
         dispatch(startLogin())
         loginRequest(username, password)
             .then((response) => {
-                console.log(response)
+                //console.log(response)
                 if (response.data.message === "Success！！") {
                     dispatch(loginSucess(username))
                     window.sessionStorage.setItem('auToken',username)

@@ -1,6 +1,7 @@
 export { default as Loading } from './Loading'
 export { default as Cart } from './Cart'
 export { default as Frame } from './Frame'
+export { default as Downbutton } from './Downbutton'
 export { default as Lastview } from './Lastview'
 export { default as SearchIn } from './SearchIn'
 export { default as Dashboardcard } from './Dashboardcard'

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { dishSort } from '../../Requests'
-import { Cart, Dashboardcard } from '../../components'
+import { Cart, Dashboardcard,Downbutton } from '../../components'
 import { Flex, PullToRefresh } from 'antd-mobile';
 
 export default class DashBoard extends PureComponent {
@@ -9,7 +9,8 @@ export default class DashBoard extends PureComponent {
         this.state = {
             list: [],
             page: 1,
-            flag: 2,
+            flag: 1,
+            flagchange:1,
             isLoadingMore: true,
             refreshing: false
         };
@@ -17,9 +18,14 @@ export default class DashBoard extends PureComponent {
 
     getDate = (page, flag) => {
         this.setState({
+            page,
+            flag
+        })
+        this.setState({
             refreshing: true
         })
-        dishSort(page, flag)
+        if(this.state.flag===flag){
+            dishSort(page, flag)
             .then((response) => {
                 if (response.data.data.length > 0) {
                     this.setState({
@@ -34,6 +40,28 @@ export default class DashBoard extends PureComponent {
                     refreshing: false
                 })
             })
+        }else{
+            this.setState({
+                flagchange: flag,
+                isLoadingMore: true,
+            })
+            dishSort(page, flag)
+            .then((response) => {
+                if (response.data.data.length > 0) {
+                    this.setState({
+                        list: response.data.data,
+                        page: this.state.page + 1,
+                        refreshing: false
+                    })
+                    return
+                }
+                this.setState({
+                    isLoadingMore: false,
+                    refreshing: false
+                })
+            })
+        }
+        
     }
 
     componentDidMount = () => {
@@ -43,15 +71,16 @@ export default class DashBoard extends PureComponent {
     render() {
         return (
             <div>
-                <Cart></Cart>
-                <div style={{ padding: '0px', margin: '13px 13px 0px' }}>
+                <Cart />
+                <Downbutton getDate={this.getDate}  />
+                <div style={{ padding: '0px', margin: '0px 13px 0px' }}>
                     <div className="flex-container" style={{ margin: '0 0' }} >
                         <Flex wrap="wrap" justify="between">
                             {
-                                this.state.list.map(item => {
+                                this.state.list.map((item, index) => {
                                     return (
                                         <Dashboardcard
-                                            key={item.dishId}
+                                            key={index}
                                             {...item}
                                             isDashBoard={true}
                                         />

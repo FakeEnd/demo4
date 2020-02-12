@@ -59,3 +59,8 @@ export const judgeCanteen = (newScore) => {
     const userid = window.sessionStorage.getItem('auToken')
     return service.post(`/judgeCanteen?newScore=${newScore}&userId=${userid}`)
 }
+
+//获取食堂评分
+export const getScore = () => {
+    return service.post(`/getScore`)
+}
