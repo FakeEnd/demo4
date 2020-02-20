@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { dishShow , opinionDefaultSort } from '../../Requests'
+import { dishShow, opinionDefaultSort, dishChangeNum } from '../../Requests'
 import { Detailcard, Detailcommentcard } from '../../components'
 
 
@@ -9,18 +9,38 @@ export default class Detail extends Component {
         super();
         this.state = {
             list: {},
-            comment: []
+            comment: [],
+            zanclick: false,
+            chaclick:false
         }
     }
-
-    getDate = ( id, dishId) =>{
+    dishChangeNum = (flag, name) => {
+        if (flag===1) {
+            this.setState({
+                zanclick:!this.state.zanclick,
+            })
+        }else{this.setState({
+            chaclick:!this.state.chaclick,
+        })}
+        const { id } = this.props.match.params
+        dishChangeNum(flag, name)
+            .then(() => {
+                dishShow(id)
+                .then((response) => {
+                    this.setState({                    
+                        list: response.data.data
+                    })
+                })                                
+            })
+    }
+    getDate = (id, dishId) => {
         dishShow(id)
             .then((response) => {
                 this.setState({
                     list: response.data.data,
                 })
             })
-        opinionDefaultSort(dishId,1)
+        opinionDefaultSort(dishId, 1)
             .then((response) => {
                 this.setState({
                     comment: response.data.data,
@@ -28,13 +48,13 @@ export default class Detail extends Component {
             })
     }
     componentDidMount() {
-        const { id , dishId } = this.props.match.params
-        this.getDate( id ,dishId)
+        const { id, dishId } = this.props.match.params
+        this.getDate(id, dishId)
     }
     render() {
         return (
             <div>
-                <Detailcard {...this.state.list}/>
+                <Detailcard {...this.state.list} dishChangeNum={this.dishChangeNum} zanclick={this.state.zanclick} chaclick={this.state.chaclick} />
                 <div>
                     <div style={{ margin: '15px 20px 5px ', height: "2px", border: "1px solid green", width: '80%' }}></div>
                     <p style={{ margin: '5px 5px 5px 30px', fontSize: '18px', color: "green" }}>评论 ：{this.state.comment.length}条</p>

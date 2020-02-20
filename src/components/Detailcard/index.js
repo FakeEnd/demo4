@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './index.less'
-import { dishChangeNum } from '../../Requests'
+//import { dishChangeNum } from '../../Requests'
 import { Flex, Icon } from 'antd-mobile'
 export default class Detailcard extends Component {
     render() {
         //const { badNum, date, dishId, msg, name, niceNum, price, tu, window } = this.props
-        const { badNum,  msg, name, niceNum, price, window } = this.props
+        const { badNum, msg, name, niceNum, price, window, dishChangeNum, zanclick, chaclick } = this.props
         return (
             <div>
                 <div className="searchshitang">
@@ -26,10 +26,32 @@ export default class Detailcard extends Component {
                     </div>
                 </div>
                 <Flex justify="center">
-
-                    <div className='DetailIcon'><Icon type="antdicongood" onClick={dishChangeNum.bind(this, 1, "dabaicia")} /> {niceNum}人</div>
-                    <div className='DetailIcon'><Icon type="antdiconbad" onClick={dishChangeNum.bind(this, 0, "dabaicia")} /> {badNum}人</div>
-
+                    {
+                        zanclick
+                            ?
+                            <div className='DetailIcon'>
+                                <Icon color='green' type="antdicongood" onClick={() => dishChangeNum(1, name)} />
+                                {niceNum}人
+                            </div>
+                            :
+                            <div className='DetailIcon'>
+                                <Icon type="antdicongood" onClick={() => dishChangeNum(1, name)} />
+                                {niceNum}人
+                            </div>
+                    }
+                    {
+                        chaclick
+                            ?
+                            <div className='DetailIcon'>
+                                <Icon type="antdiconbad" color='red' onClick={() => dishChangeNum(0, name)} />
+                                {badNum}人
+                            </div>
+                            :
+                            <div className='DetailIcon'>
+                                <Icon type="antdiconbad" onClick={() => dishChangeNum(0, name)} />
+                                {badNum}人
+                            </div>
+                    }
                 </Flex>
             </div>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Flex, Icon } from 'antd-mobile';
 import { withRouter } from 'react-router-dom'
-import { dishChangeNum } from '../../Requests'
+//import { dishChangeNum } from '../../Requests'
 @withRouter
 class Dashboardcard extends Component {
     constructor() {
@@ -9,17 +9,18 @@ class Dashboardcard extends Component {
         this.state = { click: false }
     }
 
-    clickDishChangeNum = (flag ,dishName) => {
-        dishChangeNum(flag ,dishName)
-            .then(res => this.setState({click:!this.state.click}))
-    }
+    // clickDishChangeNum = (flag ,dishName) => {
+    //     dishChangeNum(flag ,dishName)
+    //         .then(res => this.setState({click:!this.state.click}))
+    // }
 
     Detail = (name, dishId) => {
         this.props.history.push(`/admin/dashBoard/detail/${name}/${dishId}`)
     }
     render() {
-        //const { badNum, date, dishId, msg, name, niceNum, price, tu, window } = this.props
+        //const { badNum, date, dishId, msg, name, niceNum, price, tu, window , dishChangeNum} = this.props
         const { badNum,  dishId, msg, name, niceNum, price, window } = this.props
+        //onClick={()=>dishChangeNum(1, name)}
         return (
             <Card style={{ width: '49%', height: '240px', margin: '5px 0px ',float:'left' }}>
                 <Card.Header
@@ -56,15 +57,15 @@ class Dashboardcard extends Component {
                         {niceNum}
                         {this.state.click
                             ?
-                            <Icon type="antdicongood" style={{ color: 'green' }} onClick={this.clickDishChangeNum.bind(this,1,name)} />
+                            <Icon type="antdicongood" style={{ color: 'green' }} />
                             :
-                            <Icon type="antdicongood" onClick={this.clickDishChangeNum.bind(this,1,name)} />
+                            <Icon type="antdicongood"  />
                         }
 
                         {badNum}
                         {this.props.isDashBoard
                             ?
-                            <Icon type="antdiconbad" onClick={this.clickDishChangeNum.bind(this,0,name)} />
+                            <Icon type="antdiconbad"  />
                             :
                             ''}
                     </div>

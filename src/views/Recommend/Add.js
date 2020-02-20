@@ -5,16 +5,16 @@ import axios from 'axios'
 import qs from 'qs'
 
 export default class Add extends PureComponent {
-
     constructor() {
         super()
         this.state = {
             files: [],
             multiple: false,
-            name:'',
-            msg:''
+            name: '',
+            msg: ''
         }
     }
+
     changhead = (e) => {
         var apicture = e.target.files[0];
         var reader = new FileReader();
@@ -29,29 +29,29 @@ export default class Add extends PureComponent {
         });
     }
 
-    changeName = (value) =>{
+    changeName = (value) => {
         this.setState({
-            name:value
+            name: value
         })
     }
 
-    changeMsg = (value) =>{
+    changeMsg = (value) => {
         this.setState({
-            msg:value
+            msg: value
         })
     }
 
-    jianInsert = (name,msg) => {
-        let url = `http://106.15.192.117:8080/canteen/jianInsert`;       
+    jianInsert = (name, msg) => {
+        let url = `http://106.15.192.117:8080/canteen/jianInsert`;
         let tu = this.state.files[0].url
         let para = {
             name,
             msg,
-            userId: window.sessionStorage.getItem('auToken') ,
+            userId: window.sessionStorage.getItem('auToken'),
             tu
         };
         let pa = qs.stringify(para);
-        axios.post(url ,pa)
+        axios.post(url, pa)
             .then((response) => {
                 if (response.data.message === 'Success！！') {
                     alert('提交成功')
@@ -64,7 +64,7 @@ export default class Add extends PureComponent {
         const { files } = this.state;
         return (
             <WingBlank>
-                <p style={{color:'green',fontSize:'20px',margin:'15px'}}>推荐菜谱</p>
+                <p style={{ color: 'green', fontSize: '20px', margin: '15px' }}>推荐菜谱</p>
                 <WhiteSpace></WhiteSpace>
                 <TextareaItem
                     title="菜品名称"
@@ -110,10 +110,10 @@ export default class Add extends PureComponent {
                 <WhiteSpace size='lg' />
                 <WhiteSpace size='lg' />
                 <Button
-                    onClick={this.jianInsert.bind(this,this.state.name,this.state.msg)} 
+                    onClick={this.jianInsert.bind(this, this.state.name, this.state.msg)}
                     style={{ marginRight: '4px', fontSize: '18px', color: 'green' }}>
                     提交
-                        </Button>
+                </Button>
             </WingBlank>
         )
     }

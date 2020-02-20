@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import { dishSort } from '../../Requests'
-import { Cart, Dashboardcard,Downbutton } from '../../components'
+import { dishSort, dishChangeNum } from '../../Requests'
+import { Cart, Dashboardcard, Downbutton } from '../../components'
 import { Flex, PullToRefresh } from 'antd-mobile';
 
 export default class DashBoard extends PureComponent {
@@ -63,7 +63,10 @@ export default class DashBoard extends PureComponent {
         }
         
     }
-
+    dishChangeNumWay = (flag, name) => {
+        dishChangeNum(flag, name)
+        .then(()=>this.getDate(this.state.page, this.state.flag))
+    }
     componentDidMount = () => {
         this.getDate(this.state.page, this.state.flag)
     }
@@ -82,6 +85,7 @@ export default class DashBoard extends PureComponent {
                                         <Dashboardcard
                                             key={index}
                                             {...item}
+                                            dishChangeNum={this.dishChangeNumWay}
                                             isDashBoard={true}
                                         />
                                     )

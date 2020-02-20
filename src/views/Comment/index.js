@@ -16,7 +16,7 @@ export default Comment = (props) => {
     useEffect(() => {
         getScore()
             .then(res => setScore(res.data.data))
-    }, [score])
+    }, [])
 
     return (
         <div style={{ margin: '15px 15px' }}>
